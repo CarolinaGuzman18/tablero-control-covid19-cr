@@ -232,10 +232,9 @@ Resumen
 =======================================================================
 Row {data-height=1}
 -----------------------------------------------------------------------
-### **Última actualización: `r  df_general_pais_ultima_fecha$FECHA`**
+### **Última actualización de datos realizada el `r  df_general_pais_ultima_fecha$FECHA` con base en los [datos publicados por el Ministerio de Salud de Costa Rica](http://geovision.uned.ac.cr/oges/)**.
 
-
-Row
+Column 
 -----------------------------------------------------------------------
 
 ### Casos positivos {.value-box}
@@ -314,7 +313,7 @@ valueBox(value = paste(format(df_general_pais_ultima_fecha$UCI, big.mark = ","),
 )
 ```
 
-Row {data-width=400}
+Row {data-width=300}
 -----------------------------------------------------------------------
 
 ### Gráfico de variación de las cantidades de casos en el tiempo
@@ -341,14 +340,18 @@ plot_ly(data = df_general_pais,
   layout(title = "",
                  yaxis = list(title = "Cantidad de casos"),
                  xaxis = list(title = "Fecha"),
-                 legend = list(x = 0.1, y = 0.9),
-                 hovermode = "compare")
+                 legend = list(x = 0.1, y = 0.9, language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+                               ),
+                 hovermode = "compare") 
+ 
+                               
 
 ```
 
 
 ### Tabla de cantidades de casos en cantones
 ```{r}
+
 st_drop_geometry(sf_general_distritos_ultima_fecha) %>% 
   select(Provincia = provincia, Cantón = canton, Distrito = distrito, Positivos = positivos, Activos = activos, Fallecidos = fallecidos, Recuperados = recuperados) %>%
    arrange(desc(Positivos)) %>%
