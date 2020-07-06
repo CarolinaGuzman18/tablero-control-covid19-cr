@@ -443,7 +443,7 @@ valueBox(value = paste(format(df_general_pais_ultima_fecha$adul_posi, big.mark =
 ```{r}
 valueBox(value = paste(format(df_general_pais_ultima_fecha$am_posi, big.mark = ","), "(",                          round(100 * df_general_pais_ultima_fecha$am_posi / df_general_pais_ultima_fecha$positivos, 1), 
                        "%)", sep = ""), 
-         caption = "Total de Adultos", 
+         caption = "Total de Adultos Mayores", 
          icon = icono_adultom,
          color = color_positivos
 )
