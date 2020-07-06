@@ -352,14 +352,22 @@ plot_ly(data = df_general_pais,
 ### Tabla de cantidades de casos en cantones
 ```{r}
 
-st_drop_geometry(sf_general_distritos_ultima_fecha) %>% 
-  select(Provincia = provincia, Cantón = canton, Distrito = distrito, Positivos = positivos, Activos = activos, Fallecidos = fallecidos, Recuperados = recuperados) %>%
-   arrange(desc(Positivos)) %>%
+df_general_cantones_ultima_fecha <- left_join(df_activos_cantones_ultima_fecha, df_positivos_cantones_ultima_fecha, by = c( "cod_canton"))
+df_general_cantones_ultima_fecha1 <- left_join(df_recuperados_cantones_ultima_fecha, df_fallecidos_cantones_ultima_fecha, by = c( "cod_canton"))
+df_general_cantones <- left_join(df_general_cantones_ultima_fecha, df_general_cantones_ultima_fecha1)
+sf_general_cantones <- 
+  left_join(sf_cantones, df_general_cantones, by = c('cod_canton'))
+
+
+st_drop_geometry(sf_general_cantones) %>% 
+  select(Provincia = provincia, Cantón = canton, Positivos = positivos, Activos = activos, Recuperados = recuperados, Fallecidos = fallecidos) %>% 
+   arrange(desc(Positivos)) %>% 
   DT::datatable(rownames = FALSE,
                 options = list(searchHighlight = TRUE, 
                                language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
                                )
   )
+
 ```
 
 Casos positivos
