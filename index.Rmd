@@ -495,7 +495,8 @@ plot_ly(x = ~ canton,
         text = ~ positivos,
         textposition = 'auto',
         marker = list(color = color_positivos)
-) %>%
+)%>%
+  config(locale = "es") %>%
 layout(yaxis = list(title = "Cantidad de casos positivos"),
        xaxis = list(title = "Cantones"),
        margin = list(l = 10,
@@ -643,6 +644,7 @@ plot_ly(x = ~ canton,
         textposition = 'auto',
         marker = list(color = color_activos)
 ) %>%
+  config(locale = "es") %>%
 layout(yaxis = list(title = "Cantidad de casos activos"),
        xaxis = list(title = "Cantones"),
        margin = list(l = 10,
@@ -789,6 +791,7 @@ plot_ly(x = ~ canton,
         textposition = 'auto',
         marker = list(color = color_recuperados)
 ) %>%
+  config(locale = "es") %>%
 layout(yaxis = list(title = "Cantidad de casos recuperados"),
        xaxis = list(title = "Cantones"),
        margin = list(l = 10,
@@ -901,7 +904,7 @@ leaflet_cantones <- leaflet(sf_fallecidos_cantones_ultima_fecha) %>%
               group = "Cantones",
               popup = paste("Provincia: ", sf_fallecidos_cantones_ultima_fecha$provincia, "<br>",
                             "Cantón: ", sf_fallecidos_cantones_ultima_fecha$canton, "<br>",
-                            "Recuperados: ", sf_fallecidos_cantones_ultima_fecha$fallecidos
+                            "Fallecidos: ", sf_fallecidos_cantones_ultima_fecha$fallecidos
                             )
   ) %>%
   addLegend("bottomright", pal = paleta_morado, values = ~fallecidos,
@@ -935,6 +938,7 @@ plot_ly(x = ~ canton,
         textposition = 'auto',
         marker = list(color = color_fallecidos)
 ) %>%
+  config(locale = "es") %>%
 layout(yaxis = list(title = "Cantidad de casos fallecidos"),
        xaxis = list(title = "Cantones"),
        margin = list(l = 10,
@@ -946,3 +950,5 @@ layout(yaxis = list(title = "Cantidad de casos fallecidos"),
 )
 
 ```
+
+
