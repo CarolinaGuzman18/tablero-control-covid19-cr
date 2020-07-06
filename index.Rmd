@@ -20,10 +20,11 @@ library(tidyr)
 library(tidyverse)
 library(sf)
 library(leaflet)
+library(RColorBrewer)
 
 #-------------------- Colores ---------------------
 
-color_positivos <- 'blue'
+color_positivos <- 'coral'
 color_activos <- 'orange'
 color_recuperados <- 'green'
 color_fallecidos <- 'purple'
@@ -457,7 +458,7 @@ Row {data-width=400}
 ### Mapa de casos positivos en cantones
 ```{r}
 
-paleta_azul <- colorBin(palette = "Blues", 
+paleta_coral <- colorBin(palette = c("#FFFFFF", "#FFDAD1", "#FFCABD", "#FFB8A7", "#FFA994", "#FF9379", "#FF7453" ), 
                         domain = sf_positivos_cantones_ultima_fecha$positivos,
                         bins = 10
                )
@@ -465,7 +466,7 @@ paleta_azul <- colorBin(palette = "Blues",
 leaflet_cantones <- leaflet(sf_positivos_cantones_ultima_fecha) %>% 
   fitBounds(lng1 = -86, lng2 = -82, lat1 = 8, lat2 = 11) %>%
   addProviderTiles(providers$OpenStreetMap.Mapnik, group = "OpenStreetMap") %>%
-  addPolygons(fillColor = ~paleta_azul(positivos), stroke=T, fillOpacity = 1,
+  addPolygons(fillColor = ~paleta_coral(positivos), stroke=T, fillOpacity = 1,
               color="black", weight=0.2, opacity= 0.5,
               group = "Cantones",
               popup = paste("Provincia: ", sf_positivos_cantones_ultima_fecha$provincia, "<br>",
@@ -473,7 +474,7 @@ leaflet_cantones <- leaflet(sf_positivos_cantones_ultima_fecha) %>%
                             "Positivos: ", sf_positivos_cantones_ultima_fecha$positivos
                             )
   ) %>%
-  addLegend("bottomright", pal = paleta_azul, values = ~positivos,
+  addLegend("bottomright", pal = paleta_coral, values = ~positivos,
     title = "Casos positivos",
     opacity = 1
   ) %>%  
