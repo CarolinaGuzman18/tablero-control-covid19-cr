@@ -26,8 +26,8 @@ library(RColorBrewer)
 
 color_positivos <- 'coral'
 color_activos <- 'orange'
-color_recuperados <- 'green'
-color_fallecidos <- 'purple'
+color_recuperados <- 'success'
+color_fallecidos <- 'violet'
 
 color_nuevos_positivos <- 'red'
 
@@ -651,7 +651,7 @@ plot_ly(x = ~ canton,
         type = "bar", 
         text = ~ activos,
         textposition = 'auto',
-        marker = list(color = color_activos)
+        marker = list(color = "orange")
 ) %>%
   config(locale = "es") %>%
 layout(yaxis = list(title = "Cantidad de casos activos"),
@@ -753,7 +753,7 @@ Row {data-width=400}
 ### Mapa de casos recuperados en cantones
 ```{r}
 
-paleta_verde <- colorBin(palette = "Greens", 
+paleta_verde <- colorBin(palette = c("#FFFFFF", "#66D004" ), 
                         domain = sf_recuperados_cantones_ultima_fecha$recuperados,
                         bins = 10
                )
@@ -798,7 +798,7 @@ plot_ly(x = ~ canton,
         type = "bar", 
         text = ~ recuperados,
         textposition = 'auto',
-        marker = list(color = color_recuperados)
+        marker = list(color = "#6DC91A")
 ) %>%
   config(locale = "es") %>%
 layout(yaxis = list(title = "Cantidad de casos recuperados"),
@@ -900,7 +900,7 @@ Row {data-width=400}
 ### Mapa de casos fallecidos en cantones
 ```{r}
 
-paleta_morado <- colorBin(palette = "Purples", 
+paleta_morado <- colorBin(palette = c("#FFFFFF", "#BD5CFF" ), 
                         domain = sf_fallecidos_cantones_ultima_fecha$fallecidos,
                         bins = 10
                )
