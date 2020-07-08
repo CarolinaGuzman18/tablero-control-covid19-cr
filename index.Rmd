@@ -21,6 +21,7 @@ library(tidyverse)
 library(sf)
 library(leaflet)
 library(RColorBrewer)
+library(leaflet.extras)
 
 #-------------------- Colores ---------------------
 
@@ -960,4 +961,61 @@ layout(yaxis = list(title = "Cantidad de casos fallecidos"),
 
 ```
 
+Casos Distritos
+=======================================================================
+Row {data-height=1}
+-----------------------------------------------------------------------
+### **Última actualización: `r  df_general_pais_ultima_fecha$FECHA`**
+
+Row {data-height=550}
+-------------------------------------
+
+### Mapa de calor de casos activos por distrito
+```{r}
+sf_activos_distritos <- sf_general_distritos_ultima_fecha[, c("activos")]
+
+sf_activos_distritos_puntos <- st_cast(sf_activos_distritos$geometry, "MULTIPOINT")
+
+
+seal_coords <- do.call(rbind, st_geometry(sf_activos_distritos_puntos)) %>% 
+    as_tibble() %>% setNames(c("long","lat"))
+
+# Mapa web
+leaflet(seal_coords) %>% addProviderTiles(providers$CartoDB.DarkMatter) %>%
+ addWebGLHeatmap(lng=~long, lat=~lat, size = 6000)
+
+
+
+```
+
+
+### Tabla de cantidades de casos en distritos
+```{r}
+st_drop_geometry(sf_general_distritos_ultima_fecha) %>% 
+  select(Provincia = provincia,  Cantón = canton, Distrito = distrito,  Activos = activos) %>% 
+   arrange(desc(Activos)) %>% 
+  DT::datatable(rownames = FALSE,
+                options = list(searchHighlight = TRUE, 
+                               language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+                               )
+  )
+ 
+
+```
+
+
+
+Row
+-----------------------------------------------------------------------
+
+
+### Casos Activos {.value-box}
+```{r}
+df_general_distritos_ultima_fecha[is.na(df_general_distritos_ultima_fecha)] = 0
+suma <- sum(df_general_distritos_ultima_fecha$activos)           
+valueBox(suma,  caption = "Total de Activos", 
+         icon = icono_activos,
+         color = color_activos)
+
+```
 
