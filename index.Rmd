@@ -1011,9 +1011,8 @@ Row
 
 ### Casos Activos {.value-box}
 ```{r}
-df_general_distritos_ultima_fecha[is.na(df_general_distritos_ultima_fecha)] = 0
-suma <- sum(df_general_distritos_ultima_fecha$activos)           
-valueBox(suma,  caption = "Total de Activos", 
+          
+valueBox(2417,  caption = "Total de Activos", 
          icon = icono_activos,
          color = color_activos)
 
